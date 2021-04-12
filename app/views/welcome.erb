@@ -1,0 +1,30 @@
+<div class="container"> 
+  <span>
+
+    <h3>Welcome to Fitness Buddy! </h3>
+    <h3>Your companion for building</h3> 
+    <h3>and maintaing a exersise routine</h3>
+  
+      <% if flash.has?(:message) %> 
+        <%= flash[:message] %>  
+      <% end %> 
+  
+    <form action="/" method="post">
+      <label for="username" id="signup">USER NAME</label><br>
+      <input type="text" id="username" name="username"><br>
+      <label for="password" id="signup">PASSWORD</label><br>
+      <input type="password" id="password" name="password">
+      <i class="far fa-eye" id="togglePassword"></i><br>
+  
+      <input type="submit" value="Login">
+    </form>
+  
+    <script src="javascripts/app.js"></script>
+  
+    <form action="/signup" method="get">
+      <button type="submit" id="signup">Sign Up</button>
+    </form>
+  
+  
+  </span>
+</div>

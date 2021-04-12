@@ -1,0 +1,4 @@
+A User can have many Programs
+Programs have many exercises and many muscles through excersices 
+A muscle has many excersices and an excersize has a primary targeted muscle and many secondary muscles
+join table for exersises and muscles
