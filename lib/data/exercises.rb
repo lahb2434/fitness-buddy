@@ -5,7 +5,10 @@ def self.data
 end
 
 # EDB.data.select{|action| action[:targeted_muscle] == 'chest'}.each{|action| puts action[:exercise]}
-
+@exercises.each do |workout|  
+       Exercise.create(name: workout[:exercise])    
+       Muscle.create(name: workout[:targeted_muscle])    
+ end 
 
 @exercises = [{exercise: "ab crunch machine", targeted_muscle: "abdominals"},
 {exercise: "ab roller", targeted_muscle: "abdominals"},
