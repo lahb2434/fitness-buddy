@@ -1,9 +1,9 @@
 require 'rack-flash'
-# require 'securerandom/'
+require 'securerandom'
 
 class ApplicationController < Sinatra::Base
   enable :sessions
-  set :session_secret, ENV.fetch('SESSION_SECRET')
+  set :session_secret, ENV.fetch('SESSION_SECRET'){SecureRandom.hex(64)}
   
   use Rack::Flash
 
@@ -44,3 +44,4 @@ class ApplicationController < Sinatra::Base
 
 
 end
+
