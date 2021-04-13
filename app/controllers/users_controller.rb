@@ -14,9 +14,16 @@ class UsersController < ApplicationController
   end
 
   # POST: /users
-  post "/users" do
-    redirect "/users"
-  end
+  post '/users' do
+    user = User.find_by(username: params[:username])
+    if user && user.authenticate(params[:password])
+     session[:user_id] = user.id
+     redirect '/users'
+    else
+      flash[:message] = "Incorrect Username or Password. Please try again"
+     redirect to '/' 
+    end
+ end
 
   # GET: /users/5
   get "/users/:id" do
