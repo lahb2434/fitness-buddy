@@ -1,1 +1,21 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+
+ <div class="container">
+    <% if flash.has?(:message) %> 
+      <%= flash[:message] %>  
+    <% end %> 
+    <span>
+        <form action="/signup" method="post">
+            
+            <label for="username">user name</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">password</label><br>
+            <input type="password" id="password" name="password">
+            <i class="far fa-eye" id="togglePassword"></i><br>
+            
+            <input type='submit' value='Sign Up'>
+        </form>
+    </span>
+
+    <script src="javascripts/app.js"></script>
+
+</div>
