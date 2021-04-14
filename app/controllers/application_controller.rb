@@ -31,16 +31,16 @@ class ApplicationController < Sinatra::Base
     erb :signup
   end
 
-  post '/signup' do
-    user = User.new(username: params[:username], password: params[:password])
-    if user.save
-      session[:user_id] = user.id
-      redirect '/users'
-    else
-      flash[:message] = "ENTER A USERNAME & PASSWORD TO CONTINUE"
-      redirect "/signup"
-    end
-  end
+  # post '/signup' do
+  #   user = User.new(username: params[:username], password: params[:password])
+  #   if user.save
+  #     session[:user_id] = user.id
+  #     redirect '/users'
+  #   else
+  #     flash[:message] = "ENTER A USERNAME & PASSWORD TO CONTINUE"
+  #     redirect "/signup"
+  #   end
+  # end
 
 
 end
