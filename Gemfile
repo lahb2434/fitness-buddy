@@ -15,8 +15,6 @@ gem 'rack-flash3'
 gem 'securerandom'
 gem 'sysrandom'
 
-
-
 group :test do
   gem 'rspec'
   gem 'capybara'
