@@ -11,39 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210410194309) do
+ActiveRecord::Schema.define(version: 20210413195107) do
 
-  create_table "exercises", force: :cascade do |t|
+  create_table "days", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "exersise_muscles", force: :cascade do |t|
-    t.integer  "muscle_id"
-    t.integer  "exercise_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "exercises", force: :cascade do |t|
+    t.string   "name"
+    t.string   "muscle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "muscles", force: :cascade do |t|
     t.string   "name"
-    t.integer  "exercise_ids"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
-    t.integer  "exercise_ids"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "routines", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "program_id"
+    t.integer "day_id"
+    t.integer "exercise_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.integer  "program_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
