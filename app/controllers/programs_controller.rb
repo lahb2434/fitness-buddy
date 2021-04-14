@@ -6,8 +6,19 @@ class ProgramsController < ApplicationController
   end
 
   # GET: /programs/new
-  get "/programs/new" do
+  get "/programs/new" do 
+    @programs = Program.all
+    @user = User.find(session[:user_id])
     erb :"/programs/new.html"
+  end
+
+  get "/programs/new/:slug" do
+    @program = Program.find_by_slug(params[:slug])
+    @programs = Program.all
+    @days = Day.all
+    @exercises = Exercise.all
+    @muscles = Muscle.all
+    erb :"/programs/new-#{params[:slug]}.html"
   end
 
   # POST: /programs
@@ -16,7 +27,8 @@ class ProgramsController < ApplicationController
   end
 
   # GET: /programs/5
-  get "/programs/:id" do
+  get "/programs/:slug" do
+    @user = session[:user_id]
     erb :"/programs/show.html"
   end
 
