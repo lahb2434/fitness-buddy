@@ -4,8 +4,14 @@ class UsersController < ApplicationController
   # GET: /users
   
   get "/users" do
-    @user = User.find(session[:user_id])
-    erb :"/users/index.html"
+    @programs = Program.all
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+      erb :"/users/show.html"
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/'
+    end
   end
 
   # GET: /users/new
@@ -15,15 +21,15 @@ class UsersController < ApplicationController
 
   # POST: /users
   post '/users' do
-    user = User.find_by(username: params[:username])
-    if user && user.authenticate(params[:password])
-     session[:user_id] = user.id
-     redirect '/users'
+    user = User.new(username: params[:username], password: params[:password])
+    if user.save
+      session[:user_id] = user.id
+      redirect '/users'
     else
-      flash[:message] = "Incorrect Username or Password. Please try again"
-     redirect to '/' 
+      flash[:message] = "ENTER A USERNAME & PASSWORD TO CONTINUE"
+      redirect "/signup"
     end
- end
+  end
 
   # GET: /users/5
   get "/users/:id" do
