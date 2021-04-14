@@ -1,1 +1,8 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+
+<span>
+<% @programs.each do |program|%>
+    <% if !@user.programs.include?(program) %>
+      <h4><a href="/programs/new/<%=program.slug%>">Create Program <%=program.name%></a></h4>
+    <% end %>
+<% end %>
+</span>
