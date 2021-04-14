@@ -1,1 +1,14 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+
+<span>
+<h3>hello <%=@user.username.capitalize%></h3>
+<h4>Your Programs</h4>
+<% @user.programs.each do |program| %>
+    <h4><a href="/programs/<%=program.slug%>"><%= program.name %></h4></a>
+<% end %><br>
+    
+<h4><a href="/programs/new">Create Program</a></h4>
+
+</span>
+
+
+

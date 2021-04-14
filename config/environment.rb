@@ -10,4 +10,4 @@ ActiveRecord::Base.establish_connection(
 
 
 require_all 'app'
-require './lib/data/exercises.rb'
+require_all 'lib'
