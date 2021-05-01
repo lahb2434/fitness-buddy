@@ -2,48 +2,54 @@ class ProgramsController < ApplicationController
 
   # GET: /programs
   get "/programs" do
-    erb :"/programs/index.html"
+    if !!session[:user_id]
+      @user = Helpers.current_user(session)
+      @programs = @user.programs
+      erb :"/programs/index.html"
+    else
+      redirect "/"
+    end
   end
 
   # GET: /programs/new
   get "/programs/new" do 
-    @programs = Program.all
-    @user = User.find(session[:user_id])
+    @user = Helpers.current_user(session)
     erb :"/programs/new.html"
   end
 
-  get "/programs/new/:slug" do
-    @program = Program.find_by_slug(params[:slug])
-    @programs = Program.all
-    @days = Day.all
-    @exercises = Exercise.all
-    @muscles = Muscle.all
-    erb :"/programs/new-#{params[:slug]}.html"
-  end
 
   # POST: /programs
   post "/programs" do
-    redirect "/programs"
+    user = Helpers.current_user(session)
+    user.programs.create(params[:program])
+    program = user.programs.last
+    redirect "/programs/#{program.slug}"
   end
 
-  # GET: /programs/5
+  
   get "/programs/:slug" do
-    @user = session[:user_id]
+    @program = Program.find_by_slug(params[:slug])
+    session[:program_id] = @program.id
     erb :"/programs/show.html"
   end
 
-  # GET: /programs/5/edit
-  get "/programs/:id/edit" do
+  
+  get "/programs/:slug/edit" do
+    @program = Program.find_by_slug(params[:slug])
     erb :"/programs/edit.html"
   end
 
-  # PATCH: /programs/5
-  patch "/programs/:id" do
-    redirect "/programs/:id"
+  
+  patch "/programs/:slug" do
+    program = Program.find_by_slug(params[:slug])
+    program.update(params[:program])
+    redirect "/programs/#{program.slug}"
   end
 
   # DELETE: /programs/5/delete
-  delete "/programs/:id/delete" do
+  delete "/programs/:slug/delete" do
+    program = Program.find_by_slug(params[:slug])
+    routines = programs.routines
     redirect "/programs"
   end
 end
