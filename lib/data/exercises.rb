@@ -1,5 +1,5 @@
 class EDB
-    def mark
+    def self.mark
     @exercises.each do |exercise|
        workout = Exercise.find_or_create_by(name: exercise[:exercise])
        muscle = Muscle.find_or_create_by(name: exercise[:targeted_muscle])
@@ -7,15 +7,22 @@ class EDB
      end
     end
 
-  def self.parse_data
-    @exercises.each do |workout|  
-      Exercise.create(name: workout[:exercise])    
-      Muscle.create(name: workout[:targeted_muscle])    
+  def self.parse_exercise_data
+    @exercises.each do |workout| 
+      muscle = Muscle.find_or_create_by(name: workout[:targeted_muscle]) 
+      muscle.exercises.create(name: workout[:exercise])    
+          
     end 
   end
 
-  def self.findit(muscle)
-    @exercises.detect{|work| work[:targeted_muscle]==muscle}
+  def self.findit
+    muscles = ['pectorals','adductors','abdominals','delts','hamstrings','back','quadriceps','calves','glutes','biceps','triceps','lats','traps','forearms']
+    muscles.collect do |muscle|
+        @exercises.detect{|work| work[:targeted_muscle]==muscle}
+    end.each do |exercise|
+      muscle = Muscle.find_or_create_by(name: exercise[:targeted_muscle])
+      muscle.exercises.create(name: exercise[:exercise])
+    end
   end
 
 @exercises = [{exercise: "ab crunch machine", targeted_muscle: "abdominals"},

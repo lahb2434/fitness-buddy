@@ -11,17 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210413195107) do
+ActiveRecord::Schema.define(version: 20210501140540) do
 
-  create_table "days", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "exercise_workouts", force: :cascade do |t|
+    t.integer "workout_id"
+    t.integer "exercise_id"
   end
 
   create_table "exercises", force: :cascade do |t|
     t.string   "name"
-    t.string   "muscle_id"
+    t.integer  "muscle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,22 +33,31 @@ ActiveRecord::Schema.define(version: 20210413195107) do
 
   create_table "programs", force: :cascade do |t|
     t.string   "name"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "routines", force: :cascade do |t|
-    t.integer "user_id"
+    t.string  "routine_description"
     t.integer "program_id"
-    t.integer "day_id"
-    t.integer "exercise_id"
+    t.string  "style"
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
+    t.string   "weight"
+    t.string   "height"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "workouts", force: :cascade do |t|
+    t.string  "repetitions"
+    t.string  "sets"
+    t.string  "warm_up_sets"
+    t.integer "routine_id"
   end
 
 end
