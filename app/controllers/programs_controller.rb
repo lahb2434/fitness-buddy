@@ -49,7 +49,12 @@ class ProgramsController < ApplicationController
   # DELETE: /programs/5/delete
   delete "/programs/:slug/delete" do
     program = Program.find_by_slug(params[:slug])
-    routines = programs.routines
+    if program.routines.each do |routine|
+         routine.workouts.destroy_all if !!routine.workouts
+       end
+       program.routines.destroy_all
+    end
+    program.destroy
     redirect "/programs"
   end
 end
