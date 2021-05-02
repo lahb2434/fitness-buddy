@@ -1,9 +1,7 @@
 class Program < ActiveRecord::Base
-
+    belongs_to :user
     has_many :routines
-    has_many :users, through: :routines
-    has_many :days, through: :routines
-
+    
     def slug
         self.name.gsub(/\W/x, '-')
     end

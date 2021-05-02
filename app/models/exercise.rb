@@ -1,5 +1,5 @@
 class Exercise < ActiveRecord::Base
+    has_many :exercise_workouts
+    has_many :workouts, through: :exercise_workouts
     belongs_to :muscle  
-    has_many :routines
-    has_many :days, through: :routines
 end

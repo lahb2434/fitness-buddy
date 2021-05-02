@@ -1,9 +1,13 @@
 class Routine < ActiveRecord::Base
-    belongs_to :user
+    has_many :workouts
     belongs_to :program 
-    belongs_to :day
-    belongs_to :exercise
+    has_many :muscles, through: :workouts
+    
+    def slug
+        self.routine_description.gsub(/\W/x, '-')
+    end
 
-    # Routine.find_by(user_id: 1, program_id: 1, day_id: 1).each do
-
+    def self.find_by_slug(routine_name)
+        self.all.detect{|routine| routine.slug == routine_name}
+    end
 end
