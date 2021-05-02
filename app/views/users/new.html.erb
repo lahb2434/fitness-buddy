@@ -1,21 +1,12 @@
 
- <div class="container">
-    <% if flash.has?(:message) %> 
-      <%= flash[:message] %>  
-    <% end %> 
-    <span>
-        <form action="/users" method="post">
-            
-            <label for="username">user name</label><br>
-            <input type="text" id="username" name="username"><br>
-            <label for="password">password</label><br>
-            <input type="password" id="password" name="password">
-            <i class="far fa-eye" id="togglePassword"></i><br>
-            
-            <input type='submit' value='Sign Up'>
-        </form>
-    </span>
+ hello <%=@user.username%>
+ Add some details to complete profile<br><br>
+ <form action="/users" method="post">
+    <label for="weight">Weight: </label>
+    <input type="text" id="weight" name="user[weight]"><br>
+    <label for="height">Height: </label>
+    <input type="text" id="height" name="user[height]"><br><br>
+    <a class="signup" href="javascript:;" onclick="parentNode.submit();">Create User</a>
+</form>
 
-    <script src="javascripts/app.js"></script>
 
-</div>

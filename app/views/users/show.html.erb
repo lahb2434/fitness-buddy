@@ -1,14 +1,17 @@
 
-<span>
-<h3>hello <%=@user.username.capitalize%></h3>
-<h4>Your Programs</h4>
-<% @user.programs.each do |program| %>
-    <h4><a href="/programs/<%=program.slug%>"><%= program.name %></h4></a>
-<% end %><br>
-    
-<h4><a href="/programs/new">Create Program</a></h4>
 
-</span>
+<h3>Hello <%=@user.username%></h3>
+<h3>Height: <%=@user.height%></h3>
+<h3>Body Weight: <%=@user.weight%></h3>
+
+
+<a href="/programs">Programs</a><br>
+<a href="/users/<%=@user.slug%>/edit">Edit Profile</a>
+
+<br><br>
+
+<a href="/users">Home</a><br>
+<a href="/logout">logout</a>
 
 
 

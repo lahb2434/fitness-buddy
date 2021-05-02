@@ -1,0 +1,36 @@
+<h4>Edit Workout</h4>
+<form action="/workouts/<%=@workout.id%>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <label>Select Exercise</label><br>
+    <select name="exercise_id">
+    <%primary_exercise = @workout.exercises.first%>
+    <option id="<%=primary_exercise.id%>" value="<%=primary_exercise.id%>"><%=primary_exercise.name%></option>
+    <option>
+    <%@exercises.all.each do |exercise| %>
+      <%if exercise != primary_exercise%>
+        <option id="<%=exercise.id%>" value="<%=exercise.id%>"><%=exercise.name%></option>
+      <%end%>
+    <%end%>
+    </select><br>
+    <label for="exercise"> or Enter new Exercise</label><br>
+    <input type="text" name="exercise[name]" id="exercise">
+    <label for="exercise">Exercise</label>
+    <input type="text" name="muscle[name]" id="muscle">
+    <label for="muscle">Targeted Muscle</label><br>
+    <label>Details</label><br>
+    <input type="text" name="workout[repetitions]" id="repetitions" value="<%=@workout.repetitions%>">
+    <label for="repetitions">Repetitions</label><br>
+    
+    <input type="text" name="workout[sets]" id="sets" value="<%=@workout.sets%>">
+    <label for="sets">Sets</label><br>
+    
+    <input type="text" name="workout[warm_up_sets]" id="warm_up_sets" value="<%=@workout.warm_up_sets%>">
+    <label for="warm_up_sets">Warm up sets</label><br>
+
+    <a  href="javascript:;" onclick="parentNode.submit();">Save Changes</a>
+</form>
+
+<br>
+
+<a href="/users">Home</a><br>
+<a href="/logout">logout</a>

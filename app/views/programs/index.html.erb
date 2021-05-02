@@ -1,1 +1,21 @@
-<h1>This is the Model's index page.</h1>
+<h4>Your Programs:</h4>
+<% if !@user.programs.empty? %>
+    <% @user.programs.each do |program| %>
+         <a href="/programs/<%=program.slug%>"><%= program.name %></a><br>
+         <a href="/programs/<%=program.slug%>/edit">Edit Program</a><br>
+         <form action="/programs/<%=program.slug%>/delete" method="post">
+           <input id="hidden" type="hidden" name="_method" value="delete">
+           <a href="javascript:;" onclick="parentNode.submit();">Delete Program</a>
+         </form><br>
+    <%end%>
+<% else %>
+  No Programs built<br>
+<% end %><br>
+<a href="/programs/new">Build A Program</a><br>
+
+<br>
+
+<a href="/users">Home</a><br>
+<a href="/logout">logout</a>
+    
+

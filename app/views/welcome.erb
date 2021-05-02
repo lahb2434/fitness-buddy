@@ -3,7 +3,7 @@
 
     <h3>Welcome to Fitness Buddy! </h3>
     <h3>Your companion for building</h3> 
-    <h3>and maintaing a exersise routine</h3>
+    <h3>and maintaing a Exercise Routine.</h3>
   
       <% if flash.has?(:message) %> 
         <%= flash[:message] %>  
@@ -16,15 +16,15 @@
       <input type="password" id="password" name="password">
       <i class="far fa-eye" id="togglePassword"></i><br>
   
-      <input type="submit" value="Login">
+      <a class="signup" href="javascript:;" onclick="parentNode.submit();">Login</a>
     </form>
   
     <script src="javascripts/app.js"></script>
-  
-    <form action="/users/new" method="get">
-      <button type="submit" id="signup">Sign Up</button>
+
+    <form action="/signup" method="get">
+      <a class="signup" href="javascript:;" onclick="parentNode.submit();">Signup</a>
     </form>
-  
   
   </span>
 </div>
+

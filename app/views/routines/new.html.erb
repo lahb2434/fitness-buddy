@@ -1,0 +1,12 @@
+<form action="/routines" method="post"> 
+    <label for="routine_description">Routine Goal</label>
+    <select id="routine_description" name="routine[style]">
+    <%descriptions = ['power','strength','hypertrophy','endurance','aerobic']%>
+    <%descriptions.each do |description|%>
+        <option value="<%=description%>"><%=description.capitalize%></option>
+    <%end%>
+    </select><br>
+    <label for="details">Routine Description/Details/Notes</label><br>
+    <textarea id="details" name="routine[routine_description]" rows='4' cols='50'></textarea><br>   
+    <a class="signup edit" href="javascript:;" onclick="parentNode.submit();">Create Routine</a>
+</form>

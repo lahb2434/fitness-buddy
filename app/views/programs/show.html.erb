@@ -1,1 +1,33 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+  <h4><%=@program.name%></h4>
+  <%if @program.routines.empty?%>
+    Add a Routine to your new Program<br>
+  <%else%>
+    <%day = 1 %>
+    <% @program.routines.each do |routine| %>
+        <a href="/routines/<%=routine.id%>">Day <%=day%></a><br>
+        <% day += 1%>
+        Training Goal: 
+        <%=routine.style %><br>
+        <%targeted_muscles = []%>
+        <%routine.workouts.each do |workout|%>
+          <%targeted_muscles << workout.exercises.first.muscle.name%>
+        <%end%>
+        Targeted Muscles: 
+        <%targeted_muscles.uniq.each do |targeted_muscle|%>
+          <%=targeted_muscle%> 
+        <%end%><br>
+        <a href="/routines/<%=routine.id%>/edit">Edit Routine</a><br>
+        <form action="/routines/<%=routine.id%>/delete" method="post">
+          <input id="hidden" type="hidden" name="_method" value="delete">
+          <a href="javascript:;" onclick="parentNode.submit();">Delete Routine</a>
+        </form><br>
+    <% end %>
+  <%end%><br>
+
+  <a href="/routines/new">Add Routine</a><br><br>
+  <a href="/programs">Programs</a>
+
+  <br>
+
+<a href="/users">Home</a><br>
+<a href="/logout">logout</a>

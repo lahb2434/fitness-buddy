@@ -1,0 +1,36 @@
+<h4>Create Workout</h4>
+<form action="/workouts" method="post">
+    <label>Select Exercise</label><br>
+    <select name="exercise_id">
+    <option>
+    <%@exercises.each do |exercise| %>
+        <option id="<%=exercise.id%>" value="<%=exercise.id%>"><%=exercise.name%></option>
+    <%end%>
+    </select><br>
+    <label for="exercise"> or Enter new Exercise</label><br>
+    <input type="text" name="exercise[name]" id="exercise">
+    <label for="exercise">Exercise</label>
+    <select name="muscle_id" id="muscle">
+        <option>
+        <%@muscles.each do |muscle|%>
+            <option value="<%=muscle.id%>"><%=muscle.name%></option>
+        <%end%>
+    </select>
+    <label for="muscle">Targeted Muscle</label><br>
+    <label>Details</label><br>
+    <input type="text" name="workout[repetitions]" id="repetitions">
+    <label for="repetitions">Repetitions</label><br>
+    
+    <input type="text" name="workout[sets]" id="sets">
+    <label for="sets">Sets</label><br>
+    
+    <input type="text" name="workout[warm_up_sets]" id="warm_up_sets">
+    <label for="warm_up_sets">Warm up sets</label><br>
+
+    <a class="signup edit" href="javascript:;" onclick="parentNode.submit();">Create Workout</a>
+</form>
+
+<br>
+
+<a href="/users">Home</a><br>
+<a href="/logout">logout</a>

@@ -1,0 +1,24 @@
+<h3><%=@routine.style%></h3>
+<%=@routine.routine_description%><br><br>
+<%@routine.workouts.each do |workout|%>
+    <%exercise = workout.exercises.first%>
+    Exercise:  <%=exercise.name%><br>
+    Targeted Muscle: <%=exercise.muscle.name%><br>
+    Warm Up:   <%=workout.warm_up_sets%><br>
+    Reps:      <%=workout.repetitions%><br>
+    Sets:      <%=workout.sets%><br>
+    <a href="/workouts/<%=workout.id%>/edit">Edit Workout</a><br>
+    <form action="/workouts/<%=workout.id%>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <a href="javascript:;" onclick="parentNode.submit();">Delete Workout</a>
+    </form><br>
+<%end%>
+<a href="/workouts/new">Add Workout To Routine</a><br><br>
+<a href="/programs/<%=@program.slug%>">Program</a>
+
+<br>
+
+<a href="/users">Home</a><br>
+<a href="/logout">logout</a>
+   
+
