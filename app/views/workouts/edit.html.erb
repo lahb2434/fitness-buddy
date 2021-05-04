@@ -6,7 +6,7 @@
     <%primary_exercise = @workout.exercises.first%>
     <option id="<%=primary_exercise.id%>" value="<%=primary_exercise.id%>"><%=primary_exercise.name%></option>
     <option>
-    <%@exercises.all.each do |exercise| %>
+    <%@exercises.each do |exercise| %>
       <%if exercise != primary_exercise%>
         <option id="<%=exercise.id%>" value="<%=exercise.id%>"><%=exercise.name%></option>
       <%end%>
@@ -15,7 +15,12 @@
     <label for="exercise"> or Enter new Exercise</label><br>
     <input type="text" name="exercise[name]" id="exercise">
     <label for="exercise">Exercise</label>
-    <input type="text" name="muscle[name]" id="muscle">
+    <select name="muscle_id" id="muscle">
+      <option>
+      <%@muscles.each do |muscle|%>
+          <option value="<%=muscle.id%>"><%=muscle.name%></option>
+      <%end%>
+    </select>
     <label for="muscle">Targeted Muscle</label><br>
     <label>Details</label><br>
     <input type="text" name="workout[repetitions]" id="repetitions" value="<%=@workout.repetitions%>">
