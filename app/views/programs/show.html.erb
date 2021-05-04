@@ -1,3 +1,6 @@
+  <% if flash.has?(:message) %> 
+    <%= flash[:message] %>  
+  <% end %> 
   <h4><%=@program.name%></h4>
   <%if @program.routines.empty?%>
     Add a Routine to your new Program<br>
