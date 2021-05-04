@@ -21,15 +21,13 @@ class RoutinesController < ApplicationController
         routine = program.routines.last
         redirect "/routines/#{routine.id}"
       else
-        flash[:message] = "Please fill in all boxes"
+        flash[:message] = "Please fill in all areas to continue"
         redirect '/routines/new'
       end
     else
       flash[:message] = "Something went wrong, please login."
       redirect '/programs'
     end
-
-
   end
 
   # GET: /routines/5
@@ -69,8 +67,13 @@ class RoutinesController < ApplicationController
   # PATCH: /routines/5
   patch "/routines/:id" do
     routine = Routine.find(params[:id])
-    routine.update(params[:routine])
-    redirect "/routines/#{routine.id}"
+    if !params[:routine][:routine_description].empty?
+      routine.update(params[:routine])
+      redirect "/routines/#{routine.id}"
+    else
+      flash[:message] = "Please fill in all areas to continue"
+      redirect "/routines/#{routine.id}/edit"
+    end
   end
 
   # DELETE: /routines/5/delete
