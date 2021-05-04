@@ -1,36 +1,69 @@
 class RoutinesController < ApplicationController
 
-  # GET: /routines
-  get "/routines" do
-    erb :"/routines/index.html"
-  end
 
   # GET: /routines/new
   get "/routines/new" do
-    erb :"/routines/new.html"
+    if logged_in?
+      erb :"/routines/new.html"
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/'
+    end
   end
 
   # POST: /routines
   post "/routines" do
-    program = Program.find(session[:program_id])
-    program.routines.build(params[:routine])
-    program.save
-    routine = program.routines.last
-    redirect "/routines/#{routine.id}"
+    if session[:program_id]
+      program = Program.find(session[:program_id])
+      if !params[:routine][:routine_description].empty?
+        program.routines.build(params[:routine])
+        program.save
+        routine = program.routines.last
+        redirect "/routines/#{routine.id}"
+      else
+        flash[:message] = "Please fill in all boxes"
+        redirect '/routines/new'
+      end
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/programs'
+    end
+
+
   end
 
   # GET: /routines/5
   get "/routines/:id" do
-    @program = Program.find(session[:program_id])
-    @routine = Routine.find(params[:id])
-    session[:routine_id] = @routine.id
-    erb :"/routines/show.html"
+    if logged_in?
+      @program = Program.find(session[:program_id])
+      @routine = Routine.find(params[:id])
+      if @program.routines.include?(@routine) && @program.user == current_user 
+        session[:routine_id] = @routine.id
+        erb :"/routines/show.html"
+      else
+        flash[:message] = "Something went wrong"
+        redirect '/programs'
+      end
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/'
+    end
   end
 
   # GET: /routines/5/edit
   get "/routines/:id/edit" do
-    @routine = Routine.find(session[:routine_id])
-    erb :"/routines/edit.html"
+    if logged_in? 
+      @routine = Routine.find(params[:id])
+      if @routine.program.user == current_user
+        erb :"/routines/edit.html"
+      else
+        flash[:message] = "Something went wrong"
+        redirect "/routines/#{@routine.id}"
+      end
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/'
+    end
   end
 
   # PATCH: /routines/5
