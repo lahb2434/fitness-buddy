@@ -20,7 +20,7 @@ class ApplicationController < Sinatra::Base
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
      session[:user_id] = user.id
-     redirect '/users'
+     redirect "/users/#{user.slug}"
     else
       flash[:message] = "Incorrect Username or Password. Please try again"
      redirect to '/' 
@@ -28,8 +28,8 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do 
-    if !!session[:user_id]
-      @user = Helpers.current_user(session)
+    if logged_in?
+      @user = current_user
       redirect "/users/#{@user.slug}"
     else
       erb :signup
@@ -59,6 +59,20 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
 
+
+  helpers do 
+    def logged_in?
+      !!session[:user_id]
+    end
+
+    def current_user
+        User.find(session[:user_id])
+    end
+
+    def find_by_slug
+      Program.find_by_slug(params[:slug])
+    end
+  end
 
 end
 
