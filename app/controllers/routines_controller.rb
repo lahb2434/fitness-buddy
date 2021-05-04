@@ -25,7 +25,7 @@ class RoutinesController < ApplicationController
         redirect '/routines/new'
       end
     else
-      flash[:message] = "Something went wrong, please login."
+      flash[:message] = "Something went wrong."
       redirect '/programs'
     end
   end
@@ -80,8 +80,15 @@ class RoutinesController < ApplicationController
   delete "/routines/:id/delete" do
     program = Program.find(session[:program_id])
     routine = Routine.find(params[:id])
-    routine.workouts.destroy_all if !!routine.workouts
-    routine.destroy
-    redirect "/programs/#{program.slug}"
+    binding.pry
+    if routine.program.user == current_user
+      routine.workouts.destroy_all if !!routine.workouts
+      routine.destroy
+      redirect "/programs/#{program.slug}"
+    else
+      flash[:message] = "Something went wrong."
+      redirect "/routines/#{routine.id}"
+    end
   end
+
 end
