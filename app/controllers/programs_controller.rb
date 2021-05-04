@@ -17,7 +17,6 @@ class ProgramsController < ApplicationController
       @user = current_user
       erb :"/programs/new.html"
     else
-      
       redirect '/'
     end
   end
@@ -26,9 +25,14 @@ class ProgramsController < ApplicationController
   # POST: /programs
   post "/programs" do
     user = current_user
-    user.programs.create(params[:program])
-    program = user.programs.last
-    redirect "/programs/#{program.slug}"
+    if !params[:program][:name]
+      user.programs.create(params[:program])
+      program = user.programs.last
+      redirect "/programs/#{program.slug}"
+    else
+      flash[:message] = "Please fill in all areas to continue"
+      redirect '/programs/new'
+    end
   end
 
   
@@ -37,11 +41,11 @@ class ProgramsController < ApplicationController
       @program = find_by_slug
       if current_user.programs.include?(@program)
         session[:program_id] = @program.id
-        erb :"/programs/show.html"
       else
         flash[:message] = "Something went wrong"
         redirect "/programs/#{@program.slug}"
       end
+      erb :"/programs/show.html"
     else
       flash[:message] = "Something went wrong, please login."
       redirect '/'
