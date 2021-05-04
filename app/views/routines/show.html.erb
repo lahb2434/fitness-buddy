@@ -1,3 +1,5 @@
+
+
 <h3><%=@routine.style%></h3>
 <%=@routine.routine_description%><br><br>
 <%@routine.workouts.each do |workout|%>
@@ -13,7 +15,12 @@
       <a href="javascript:;" onclick="parentNode.submit();">Delete Workout</a>
     </form><br>
 <%end%>
-<a href="/workouts/new">Add Workout To Routine</a><br><br>
+<a href="/workouts/new">Add Workout To Routine</a><br>
+<a href="/routines/<%=@routine.id%>/edit">Edit Routine</a><br>
+        <form action="/routines/<%=@routine.id%>/delete" method="post">
+          <input id="hidden" type="hidden" name="_method" value="delete">
+          <a href="javascript:;" onclick="parentNode.submit();">Delete Routine</a>
+        </form><br>
 <a href="/programs/<%=@program.slug%>">Program</a>
 
 <br>
