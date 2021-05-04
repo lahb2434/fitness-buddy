@@ -36,6 +36,7 @@ class RoutinesController < ApplicationController
       @program = Program.find(session[:program_id])
       @routine = Routine.find(params[:id])
       if @program.routines.include?(@routine) && @program.user == current_user 
+        
         session[:routine_id] = @routine.id
         erb :"/routines/show.html"
       else

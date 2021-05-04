@@ -117,6 +117,5 @@ class WorkoutsController < ApplicationController
       flash[:message] = "Something went wrong."
       redirect "/workouts/#{workout.id}"
     end
-
   end
 end
