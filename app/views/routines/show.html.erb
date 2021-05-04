@@ -8,8 +8,8 @@
       Exercise:  <%=exercise.name%><br>
       Targeted Muscle: <%=exercise.muscle.name%><br>
       Warm Up:   <%=workout.warm_up_sets%><br>
-      Reps:      <%=workout.repetitions%><br>
       Sets:      <%=workout.sets%><br>
+      Reps:      <%=workout.repetitions%><br>
       <a href="/workouts/<%=workout.id%>/edit">Edit Workout</a><br>
       <form action="/workouts/<%=workout.id%>/delete" method="post">
         <input id="hidden" type="hidden" name="_method" value="delete">
