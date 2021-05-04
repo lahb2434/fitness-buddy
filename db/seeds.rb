@@ -8,9 +8,9 @@ program1 = user1.programs.build(name: 'Absolute Full Body Smack Down')
 program2 = user2.programs.build(name: 'RedBull Challenge')
 program3 = user3.programs.build(name: 'Spartan Race Prep')
 
-routine1 = program1.routines.build(routine_description: "Power")
-routine2 = program2.routines.build(routine_description: "Hypertrophy")
-routine3 = program3.routines.build(routine_description: "Endurance")
+routine1 = program1.routines.build(style: "Power",routine_description: "Full Body Routine targeting part of every muscle group a day.")
+routine2 = program2.routines.build(style: "Hypertrophy",routine_description: "Bro Split")
+routine3 = program3.routines.build(style: "Endurance",routine_description: "Endurance Routine developed to push the limits of the human condition.")
 
 workout1 = routine1.workouts.build(repetitions: '5-8 reps', sets: "3 sets", warm_up_sets: "3 sets increase exponentially to 95% of 1rm")
 workout2 = routine2.workouts.build(repetitions: '12-15 reps', sets: "3-4 sets", warm_up_sets: "3 easy + light weight")
