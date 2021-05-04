@@ -30,7 +30,7 @@ class ProgramsController < ApplicationController
       program = user.programs.last
       redirect "/programs/#{program.slug}"
     else
-      flash[:message] = "Please fill in all areas to continue"
+      flash[:message] = "Please fill in all areas to continue."
       redirect '/programs/new'
     end
   end
@@ -71,8 +71,18 @@ class ProgramsController < ApplicationController
 
   patch "/programs/:slug" do
     program = find_by_slug
-    program.update(params[:program])
-    redirect "/programs/#{program.slug}"
+    if program.user == current_user
+      if !params[:program][:name]
+        program.update(params[:program])
+      else
+        flash[:message] = "Please fill in all areas to continue."
+        redirect "/programs/#{program.slug}/edit"
+      end
+      redirect "/programs/#{program.slug}"
+    else
+      flash[:message] = "Something went wrong."
+      redirect '/programs'
+    end
   end
 
   # DELETE: /programs/5/delete
