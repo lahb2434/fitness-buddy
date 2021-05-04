@@ -93,8 +93,11 @@ a {
     <header class="brand">
       <h1>fitness buddy</h1>
     </header>
-    
 
+    <% if flash.has?(:message) %> 
+      <%= flash[:message] %>  
+    <% end %>
+    
         <%=yield%>
 
    

@@ -1,6 +1,4 @@
-<% if flash.has?(:message) %> 
-    <%= flash[:message] %>  
-<% end %> 
+ 
 
 <form action="/routines" method="post"> 
     <label for="routine_description">Routine Goal</label>
@@ -13,4 +11,7 @@
     <label for="details">Routine Description/Details/Notes</label><br>
     <textarea id="details" name="routine[routine_description]" rows='4' cols='50'></textarea><br>   
     <a class="signup edit" href="javascript:;" onclick="parentNode.submit();">Create Routine</a>
-</form>
+</form><br><br>
+
+<a href="/users/<%=current_user.id%>">Home</a><br>
+<a href="/logout">logout</a>

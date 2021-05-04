@@ -1,6 +1,4 @@
-  <% if flash.has?(:message) %> 
-    <%= flash[:message] %>  
-  <% end %> 
+  
   <h4><%=@program.name%></h4>
   <%if @program.routines.empty?%>
     Add a Routine to your new Program<br>
@@ -18,12 +16,7 @@
         Targeted Muscles: 
         <%targeted_muscles.uniq.each do |targeted_muscle|%>
           <%=targeted_muscle%> 
-        <%end%><br>
-        <a href="/routines/<%=routine.id%>/edit">Edit Routine</a><br>
-        <form action="/routines/<%=routine.id%>/delete" method="post">
-          <input id="hidden" type="hidden" name="_method" value="delete">
-          <a href="javascript:;" onclick="parentNode.submit();">Delete Routine</a>
-        </form><br>
+        <%end%><br><br>
     <% end %>
   <%end%><br>
 
@@ -32,5 +25,5 @@
 
   <br>
 
-<a href="/users">Home</a><br>
+<a href="/users/<%=current_user.id%>">Home</a><br>
 <a href="/logout">logout</a>
