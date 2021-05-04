@@ -1,9 +1,9 @@
 class ProgramsController < ApplicationController
 
-  # GET: /programs
+ 
   get "/programs" do
-    if !!session[:user_id]
-      @user = Helpers.current_user(session)
+    if logged_in?
+      @user = current_user
       @programs = @user.programs
       erb :"/programs/index.html"
     else
@@ -13,14 +13,19 @@ class ProgramsController < ApplicationController
 
   # GET: /programs/new
   get "/programs/new" do 
-    @user = Helpers.current_user(session)
-    erb :"/programs/new.html"
+    if logged_in?
+      @user = current_user
+      erb :"/programs/new.html"
+    else
+      
+      redirect '/'
+    end
   end
 
 
   # POST: /programs
   post "/programs" do
-    user = Helpers.current_user(session)
+    user = current_user
     user.programs.create(params[:program])
     program = user.programs.last
     redirect "/programs/#{program.slug}"
@@ -28,33 +33,64 @@ class ProgramsController < ApplicationController
 
   
   get "/programs/:slug" do
-    @program = Program.find_by_slug(params[:slug])
-    session[:program_id] = @program.id
-    erb :"/programs/show.html"
+    if logged_in?
+      @program = find_by_slug
+      if current_user.programs.include?(@program)
+        session[:program_id] = @program.id
+        erb :"/programs/show.html"
+      else
+        flash[:message] = "Something went wrong"
+        redirect "/programs/#{@program.slug}"
+      end
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/'
+    end
   end
 
   
   get "/programs/:slug/edit" do
-    @program = Program.find_by_slug(params[:slug])
-    erb :"/programs/edit.html"
+    if logged_in?
+      @program = find_by_slug
+      if current_user.programs.include?(@program)
+        erb :"/programs/edit.html"
+      else
+        flash[:message] = "Something went wrong"
+        redirect "/programs/#{@program.slug}"
+      end
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/'
+    end
   end
+    
 
-  
   patch "/programs/:slug" do
-    program = Program.find_by_slug(params[:slug])
+    program = find_by_slug
     program.update(params[:program])
     redirect "/programs/#{program.slug}"
   end
 
   # DELETE: /programs/5/delete
   delete "/programs/:slug/delete" do
-    program = Program.find_by_slug(params[:slug])
-    if program.routines.each do |routine|
-         routine.workouts.destroy_all if !!routine.workouts
-       end
-       program.routines.destroy_all
+    if logged_in?
+        program = find_by_slug
+        if current_user.programs.include?(program)
+          if program.routines.each do |routine|
+               routine.workouts.destroy_all if !!routine.workouts
+             end
+             program.routines.destroy_all
+          end
+          program.destroy
+          redirect "/programs"
+        else
+          flash[:message] = "Something went wrong"
+          redirect "/programs/#{@program.slug}"
+        end
+    else
+      flash[:message] = "Something went wrong, please login."
+      redirect '/'
     end
-    program.destroy
-    redirect "/programs"
   end
+
 end
