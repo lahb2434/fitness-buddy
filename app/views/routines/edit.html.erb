@@ -1,3 +1,5 @@
+ 
+
 <form action="/routines/<%=@routine.id%>" method="post"> 
     <input id="hidden" type="hidden" name="_method" value="patch">
     <label for="routine_description">Edit Description </label>
@@ -15,6 +17,6 @@
 
 <br>
 
-<a href="/users">Home</a><br>
+<a href="/users/<%=current_user.id%>">Home</a><br>
 <a href="/logout">logout</a>
 
