@@ -1,3 +1,7 @@
+<% if flash.has?(:message) %> 
+    <%= flash[:message] %>  
+<% end %> 
+
 <form action="/routines" method="post"> 
     <label for="routine_description">Routine Goal</label>
     <select id="routine_description" name="routine[style]">
