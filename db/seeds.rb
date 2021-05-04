@@ -2,7 +2,7 @@ EDB.findit #seeds exercise and muscle data conservatively
 
 user1 = User.new(username: "Marco", weight: "185 lbs", height: "5'8\"", password: "Polo")
 user2 = User.new(username: "Azazel", weight: "300 lbs", height: "7'5\"", password: "Morningstar")
-user2 = User.new(username: "Saylor", weight: "65 lbs", height: "2'5\"", password: "Adorable")
+user3 = User.new(username: "Saylor", weight: "65 lbs", height: "2'5\"", password: "Adorable")
 
 program1 = user1.programs.build(name: 'Absolute Full Body Smack Down')
 program2 = user2.programs.build(name: 'RedBull Challenge')
