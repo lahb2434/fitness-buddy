@@ -1,14 +1,15 @@
 # Fitness Buddy
+
 Fitness Buddy is a workout routine developer/manager for writing and tracking exercise programs.
 
 
 ## Installation
 
-Install
+run gem install fitness buddy
 
 ## Usage
 
-
+Use to create, modify, and manage exercise program.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
