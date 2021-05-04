@@ -8,8 +8,6 @@ use Rack::MethodOverride
 
 run ApplicationController
 use ProgramsController
-use MusclesController
-use ExercisesController
 use UsersController
 use RoutinesController
 use WorkoutsController
