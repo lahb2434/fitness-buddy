@@ -40,7 +40,6 @@ class WorkoutsController < ApplicationController
         workout.save
         exercise.exercise_workouts.build(workout: workout)
         exercise.save
-        binding.pry
         redirect "/routines/#{routine.id}"
     else
       flash[:message] = "Something went wrong."

@@ -25,7 +25,7 @@ class ProgramsController < ApplicationController
   # POST: /programs
   post "/programs" do
     user = current_user
-    if !params[:program][:name]
+    if params[:program][:name]
       user.programs.create(params[:program])
       program = user.programs.last
       redirect "/programs/#{program.slug}"

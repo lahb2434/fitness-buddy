@@ -81,7 +81,6 @@ class RoutinesController < ApplicationController
   delete "/routines/:id/delete" do
     program = Program.find(session[:program_id])
     routine = Routine.find(params[:id])
-    binding.pry
     if routine.program.user == current_user
       routine.workouts.destroy_all if !!routine.workouts
       routine.destroy
